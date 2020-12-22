@@ -20,27 +20,13 @@
             android:id="@+id/flipper"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <LinearLayout
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_gadgets"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/tv_card_info"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="@string/card_tooltip"
-                    android:textSize="15sp"
-                    android:layout_margin="5dp"/>
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_gadgets"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:background="@color/colorPrimaryDescent"/>
-            </LinearLayout>
+                android:orientation="vertical"
+                android:background="@color/colorPrimaryDescent"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"

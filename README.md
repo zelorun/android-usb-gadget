@@ -1,6 +1,12 @@
-# USB Gadget Tool
+# Modified USB Gadget Tool (modified version to send keystrokes)
 
-<img src="static/usb-gadget-tool-3.png" align="right" height="500" alt="USB Gadget Tool Screenshot">  
+This is a modified version of the USB Gadget Tool with an additional feature to send some keystrokes (currently opening a terminal under Windows and Ubuntu saying "Hello World.")
+
+To use this feature your android device must have a matching kernel (most modern devices do) and activate the "mouse+keyboard.sh" gadget.
+
+<img src="static/usb-gadget-tool-4.png" align="right" height="500" alt="USB Gadget Tool Screenshot">  
+
+# Original USB Gadget Tool 
 
 Convert your Android phone to any USB device you like!  
 USB Gadget Tool allows you to create and activate USB device roles, like a mouse or a keyboard. Connected USB hosts (e.g. a normal computer) will then identify your Android device only under that role.

@@ -18,4 +18,10 @@
         android:title="@string/gadget_add"
         android:icon="@drawable/baseline_info_24"
         app:showAsAction="always" />
+    
+    <item
+        android:id="@+id/launch"
+        android:title="@string/gadget_add"
+        android:icon="@drawable/baseline_launch_24"
+        app:showAsAction="always" />
 </menu>

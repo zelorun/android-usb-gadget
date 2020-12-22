@@ -1,13 +1,14 @@
 package net.tjado.usbgadget;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 public class GadgetObject {
     protected HashMap<String, String> values = new HashMap<>();
-    protected ArrayList<String> functions = new ArrayList<>();
-    protected ArrayList<String> activeFunctions = new ArrayList<>();
-    protected GadgetShellApi gsa = new GadgetShellApi();
+    protected SortedSet<String> functions = new TreeSet<>();
+    protected SortedSet<String> activeFunctions = new TreeSet<>();
 
     public GadgetObject() {
     }
@@ -29,7 +30,7 @@ public class GadgetObject {
         functions.add(f);
     }
 
-    public ArrayList<String> getFunctions() {
+    public SortedSet<String> getFunctions(String key) {
         return functions;
     }
 
@@ -37,69 +38,36 @@ public class GadgetObject {
         activeFunctions.add(f);
     }
 
-    public ArrayList<String> getActiveFunctions() {
+    public SortedSet<String> getActiveFunctions(String key) {
         return activeFunctions;
     }
 
     public Boolean isActivated() {
         String udc = getValue("udc");
-        return !udc.equals("") && !udc.equals("not set");
+        if (udc.equals("") || udc.equals("not set")) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     public String getFormattedFunctions() {
         StringBuffer sb =  new StringBuffer();
-        String color = "#ff0000";
+        String color = "";
 
-        for(String function : functions) {
-            if( activeFunctions.contains(function)) {
+        Iterator<String> it = functions.iterator();
+        while( it.hasNext() ) {
+            String item = it.next();
+
+            if( activeFunctions.contains(item)) {
                 color = "#008000";
+            } else {
+                color = "#ff0000";
             }
-            sb.append(String.format("<font color=%s>%s</font><br />", color, function));
+
+            sb.append(String.format("<font color=%s>%s</font><br />", color, item));
         }
 
         return sb.toString();
-    }
-
-    public Boolean activate() {
-        return activate(null);
-    }
-
-    public Boolean activate(RootTask.OnRootTaskListener onRootTaskFinished) {
-        return this.gsa.activate(getValue("gadget_path"), onRootTaskFinished);
-    }
-
-    public Boolean deactivate() {
-        return deactivate(null);
-    }
-
-    public Boolean deactivate(RootTask.OnRootTaskListener onRootTaskFinished) {
-        return this.gsa.deactivate(getValue("gadget_path"), onRootTaskFinished);
-    }
-
-
-    public Boolean activateFunction(String function, Boolean reactivateGadget) {
-        String gadgetPath = getValue("gadget_path");
-        String gadgetConfigPath = getValue("config_path");
-
-        Boolean status = this.gsa.activateFunction(gadgetPath, gadgetConfigPath, function, (isActivated() && reactivateGadget));
-        if (status) {
-            // add activated function to activeFunctions to avoid refreshing configFS data
-            activeFunctions.add(function);
-        }
-
-        return status;
-    }
-
-    public Boolean deactivateFunction(String function, Boolean reactivateGadget) {
-        String gadgetPath = getValue("gadget_path");
-        String gadgetConfigPath = getValue("config_path");
-
-        Boolean status = this.gsa.deactivateFunction(gadgetPath, gadgetConfigPath, function, (isActivated() && reactivateGadget));
-        if (status) {
-            // remove deactivated function from activeFunctions to avoid refreshing configFS data
-            activeFunctions.removeIf(function::equals);
-        }
-
-        return status;
     }
 }

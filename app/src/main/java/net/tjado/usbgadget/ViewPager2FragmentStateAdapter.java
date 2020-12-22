@@ -1,5 +1,7 @@
 package net.tjado.usbgadget;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -18,8 +20,6 @@ public class ViewPager2FragmentStateAdapter extends FragmentStateAdapter {
             case 0:
                 return new OverviewFragment();
             case 1:
-                return new DeviceInfoFragment();
-            case 2:
                 return new LogFragment();
         }
         return null;
@@ -27,6 +27,6 @@ public class ViewPager2FragmentStateAdapter extends FragmentStateAdapter {
 
     @Override
     public int getItemCount() {
-        return 3;
+        return 2;
     }
 }
